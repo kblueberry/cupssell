@@ -1,5 +1,8 @@
 node_modules
+dist
 build
+coverage
+*.min.js
 public/build
 */*.yml
 .shopify
