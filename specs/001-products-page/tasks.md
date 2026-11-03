@@ -38,15 +38,15 @@ description: "Implementation tasks for the Products page feature"
 
 ### Tests for User Story 1
 
-- [ ] T005 [P] [US1] Add loader success and empty-result coverage in `app/routes/app.products.test.tsx`.
-- [ ] T006 [P] [US1] Add rendered product list, optional image, and empty-state coverage in `app/routes/app.products.test.tsx`.
+- [X] T005 [P] [US1] Add loader success and empty-result coverage in `app/routes/app.products.test.tsx`.
+- [X] T006 [P] [US1] Add rendered product list, optional image, and empty-state coverage in `app/routes/app.products.test.tsx`.
 
 ### Implementation for User Story 1
 
-- [ ] T007 [US1] Add the Products navigation link to `app/routes/app.tsx`.
-- [ ] T008 [US1] Implement the authenticated products loader and typed `#graphql` query for `id`, `title`, `status`, `featuredImage { url altText }`, and required page-info cursors in `app/routes/app.products.tsx`.
-- [ ] T009 [US1] Render a Polaris `s-table` product list with title, status, and optional accessible image in `app/routes/app.products.tsx`.
-- [ ] T010 [US1] Render the successful zero-product empty state in `app/routes/app.products.tsx`.
+- [X] T007 [US1] Add the Products navigation link to `app/routes/app.tsx`.
+- [X] T008 [US1] Implement the authenticated products loader and typed `#graphql` query for `id`, `title`, `status`, `featuredMedia { ... on MediaImage { image { url altText } } }`, and required page-info cursors in `app/routes/app.products.tsx`.
+- [X] T009 [US1] Render a Polaris `s-table` product list with title, status, and optional accessible image in `app/routes/app.products.tsx`.
+- [X] T010 [US1] Render the successful zero-product empty state in `app/routes/app.products.tsx`.
 
 **Checkpoint**: Merchants can navigate to Products and review a populated or empty catalog page.
 
@@ -60,12 +60,12 @@ description: "Implementation tasks for the Products page feature"
 
 ### Tests for User Story 3
 
-- [ ] T011 [P] [US3] Add transport failure, GraphQL error, retry, and pending-navigation state coverage in `app/routes/app.products.test.tsx`.
+- [X] T011 [P] [US3] Add transport failure, GraphQL error, retry, and pending-navigation state coverage in `app/routes/app.products.test.tsx`.
 
 ### Implementation for User Story 3
 
-- [ ] T012 [US3] Map transport and GraphQL failures to a typed user-safe route error state in `app/routes/app.products.tsx`.
-- [ ] T013 [US3] Render a retryable Polaris error banner and bind React Router pending navigation to the table loading property in `app/routes/app.products.tsx`.
+- [X] T012 [US3] Map transport and GraphQL failures to a typed user-safe route error state in `app/routes/app.products.tsx`.
+- [X] T013 [US3] Render a retryable Polaris error banner and bind React Router pending navigation to the table loading property in `app/routes/app.products.tsx`.
 
 **Checkpoint**: Pending and failed requests provide visible, recoverable feedback.
 
@@ -79,12 +79,12 @@ description: "Implementation tasks for the Products page feature"
 
 ### Tests for User Story 2
 
-- [ ] T014 [P] [US2] Add cursor direction, page boundary, and adjacent-page navigation coverage in `app/routes/app.products.test.tsx`.
+- [X] T014 [P] [US2] Add cursor direction, page boundary, and adjacent-page navigation coverage in `app/routes/app.products.test.tsx`.
 
 ### Implementation for User Story 2
 
-- [ ] T015 [US2] Query `first: 25` with `after` or `last: 25` with `before` according to validated URL parameters in `app/routes/app.products.tsx`.
-- [ ] T016 [US2] Render Next and Previous controls from page-info flags and cursors, navigating with URL search parameters in `app/routes/app.products.tsx`.
+- [X] T015 [US2] Query `first: 25` with `after` or `last: 25` with `before` according to validated URL parameters in `app/routes/app.products.tsx`.
+- [X] T016 [US2] Render Next and Previous controls from page-info flags and cursors, navigating with URL search parameters in `app/routes/app.products.tsx`.
 
 **Checkpoint**: Merchants can move through cursor pages, with each control unavailable when its adjacent page does not exist.
 
@@ -94,9 +94,9 @@ description: "Implementation tasks for the Products page feature"
 
 **Purpose**: Generate operation types and verify the implementation against the design.
 
-- [ ] T017 Regenerate Shopify GraphQL operation types for the route using `npm run graphql-codegen` and use the generated variable/result types in `app/routes/app.products.tsx`.
-- [ ] T018 [P] Confirm the feature introduces no `any` in `app/routes/app.products.tsx` or `app/routes/app.products.test.tsx`.
-- [ ] T019 Run the focused Vitest suite, `npm run typecheck`, `npm run lint`, and `npm run build`; resolve feature-related failures.
+- [X] T017 Regenerate Shopify GraphQL operation types for the route using `npm run graphql-codegen` and use the generated variable/result types in `app/routes/app.products.tsx`.
+- [X] T018 [P] Confirm the feature introduces no `any` in `app/routes/app.products.tsx` or `app/routes/app.products.test.tsx`.
+- [X] T019 Run the focused Vitest suite, `npm run typecheck`, `npm run lint`, and `npm run build`; resolve feature-related failures.
 - [ ] T020 Validate the embedded Products route scenarios in `specs/001-products-page/quickstart.md`.
 
 ---
@@ -151,3 +151,9 @@ These tests share a file; parallel execution requires coordinated changes or sep
 - Every task has a checkbox, sequential ID, applicable story label, and concrete file path.
 - `[P]` marks work on a distinct file that can proceed independently.
 - Shopify Admin API implementation must follow the repository instruction to use the Shopify AI Toolkit; do not add toolkit dependencies to the repository.
+
+## Phase 7: Convergence
+
+- [ ] T021 Add tests for absent, empty, duplicate, and overlong cursor parameters; verify malformed cursors avoid Admin GraphQL and the first-page request omits cursor variables in `app/routes/app.products.test.tsx` per FR-007 and Constitution II (missing).
+- [ ] T022 Show and test a visible pending state in the `/app` layout while the Products route loader is pending in `app/routes/app.tsx` and `app/routes/app.products.test.tsx` per FR-004 and US3/AC1 (partial).
+- [ ] T023 Distinguish a true empty catalog from a zero-result cursor page and provide first-page recovery when page info indicates prior products in `app/routes/app.products.tsx` per the catalog-change edge case (partial).

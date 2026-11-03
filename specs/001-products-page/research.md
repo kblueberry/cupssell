@@ -4,10 +4,12 @@
 
 - **Decision**: Query products through the authenticated server-side Admin GraphQL client
   returned by `authenticate.admin(request)`. Request `id`, `title`, `status`, and
-  `featuredImage { url altText }`, with connection cursors and `pageInfo`.
+  `featuredMedia { ... on MediaImage { image { url altText } } }`, with connection cursors
+  and `pageInfo`. Map the media image to the page's `featuredImage` presentation field.
 - **Rationale**: The existing React Router Shopify package provides this authentication
   pattern. Shopify documents `products` as a paginated connection intended for product
-  catalog browsing.
+  catalog browsing. The current Admin API marks `Product.featuredImage` deprecated, so the
+  query uses the supported `featuredMedia` field and selects image fields only for `MediaImage`.
 - **Alternatives considered**: REST Admin API is excluded by the user request and is legacy
   for new public apps. Browser-side Admin API access would violate the server-loader
   requirement.
