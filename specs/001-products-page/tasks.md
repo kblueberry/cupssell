@@ -154,6 +154,6 @@ These tests share a file; parallel execution requires coordinated changes or sep
 
 ## Phase 7: Convergence
 
-- [ ] T021 Add tests for absent, empty, duplicate, and overlong cursor parameters; verify malformed cursors avoid Admin GraphQL and the first-page request omits cursor variables in `app/routes/app.products.test.tsx` per FR-007 and Constitution II (missing).
-- [ ] T022 Show and test a visible pending state in the `/app` layout while the Products route loader is pending in `app/routes/app.tsx` and `app/routes/app.products.test.tsx` per FR-004 and US3/AC1 (partial).
+- [X] T021 Add tests for absent, empty, duplicate, and overlong cursor parameters; verify malformed cursors avoid Admin GraphQL and the first-page request omits cursor variables in `app/routes/app.products.test.tsx` per FR-007 and Constitution II (missing).
+- [X] T022 Show and test a visible pending state in the `/app` layout while the Products route loader is pending in `app/routes/app.tsx` and `app/routes/app.products.test.tsx` per FR-004 and US3/AC1 (partial).
 - [ ] T023 Distinguish a true empty catalog from a zero-result cursor page and provide first-page recovery when page info indicates prior products in `app/routes/app.products.tsx` per the catalog-change edge case (partial).

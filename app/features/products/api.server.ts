@@ -4,7 +4,7 @@ import type { ProductsPageQuery, ProductsPageQueryVariables } from "../../types/
 import { parseProductPaginationParams } from "./pagination";
 import type { ProductListItem, ProductPage, ProductsPageData } from "./types";
 
-const PAGE_SIZE = 25;
+const PAGE_SIZE = 10;
 const LOAD_ERROR = "We couldn't load products. Try again.";
 
 const PRODUCTS_QUERY = `#graphql

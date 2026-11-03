@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { authenticate } from "../shopify.server";
 import { createProductsPageUrl } from "../features/products/pagination";
 import type { ProductPage } from "../features/products/types";
+import { PendingNavigationStatus } from "./app";
 import {
   loader,
   ProductsView,
@@ -128,6 +129,28 @@ describe("Products route loader", () => {
 
     expect(result).toEqual({ state: "success", page: emptyPage });
   });
+
+  it("uses a first-page request without cursor variables when cursors are absent", async () => {
+    mockSuccessfulGraphql(firstPage);
+
+    await invokeLoader();
+
+    expect(adminGraphql).toHaveBeenCalledWith(
+      expect.any(String),
+      { variables: { first: 10 } },
+    );
+  });
+
+  it.each([
+    ["empty", "?after="],
+    ["duplicate", "?after=one&after=two"],
+    ["overlong", `?after=${"a".repeat(2049)}`],
+  ])("rejects %s cursor parameters without calling Admin GraphQL", async (_case, search) => {
+    const result = await invokeLoader(`https://example.com/app/products${search}`);
+
+    expect(result).toMatchObject({ state: "error" });
+    expect(adminGraphql).not.toHaveBeenCalled();
+  });
 });
 
 describe("Products page rendering", () => {
@@ -156,6 +179,16 @@ describe("Products page rendering", () => {
 
     expect(markup).toContain("loading");
     expect(markup).toContain("Canvas Tote");
+  });
+
+  it("shows a visible pending status in the app layout while Products loads", () => {
+    const markup = renderToStaticMarkup(
+      createElement(PendingNavigationStatus, { pending: true }),
+    );
+
+    expect(markup).toContain('role="status"');
+    expect(markup).toContain("Loading page");
+    expect(renderProducts({ state: "success", page: firstPage }, true)).toContain("loading");
   });
 });
 
@@ -199,7 +232,7 @@ describe("Products pagination and failures", () => {
     await invokeLoader("https://example.com/app/products?after=end-cursor");
 
     expect(adminGraphql.mock.calls[0]?.[1]).toEqual({
-      variables: { first: 25, after: "end-cursor" },
+      variables: { first: 10, after: "end-cursor" },
     });
 
     mockSuccessfulGraphql({
@@ -209,7 +242,7 @@ describe("Products pagination and failures", () => {
     await invokeLoader("https://example.com/app/products?before=start-cursor");
 
     expect(adminGraphql.mock.calls[1]?.[1]).toEqual({
-      variables: { last: 25, before: "start-cursor" },
+      variables: { last: 10, before: "start-cursor" },
     });
   });
 

@@ -1,5 +1,10 @@
 import type { HeadersFunction, LoaderFunctionArgs } from "react-router";
-import { Outlet, useLoaderData, useRouteError } from "react-router";
+import {
+  Outlet,
+  useLoaderData,
+  useNavigation,
+  useRouteError,
+} from "react-router";
 import { boundary } from "@shopify/shopify-app-react-router/server";
 import { AppProvider } from "@shopify/shopify-app-react-router/react";
 
@@ -12,9 +17,15 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return { apiKey: process.env.SHOPIFY_API_KEY || "" };
 };
 
-export default function App() {
-  const { apiKey } = useLoaderData<typeof loader>();
-
+export function AppLayoutView({
+  apiKey,
+  pending,
+  children,
+}: {
+  apiKey: string;
+  pending: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <AppProvider apiKey={apiKey}>
       <s-app-nav>
@@ -22,8 +33,30 @@ export default function App() {
         <s-link href="/app/products">Products</s-link>
         <s-link href="/app/additional">Additional page</s-link>
       </s-app-nav>
-      <Outlet />
+      <PendingNavigationStatus pending={pending} />
+      {children}
     </AppProvider>
+  );
+}
+
+export function PendingNavigationStatus({ pending }: { pending: boolean }) {
+  return pending ? (
+    <s-section>
+      <div role="status" aria-live="polite">
+        <s-text>Loading page…</s-text>
+      </div>
+    </s-section>
+  ) : null;
+}
+
+export default function App() {
+  const { apiKey } = useLoaderData<typeof loader>();
+  const navigation = useNavigation();
+
+  return (
+    <AppLayoutView apiKey={apiKey} pending={navigation.state !== "idle"}>
+      <Outlet />
+    </AppLayoutView>
   );
 }
 
