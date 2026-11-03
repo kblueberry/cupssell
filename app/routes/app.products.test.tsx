@@ -3,11 +3,11 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { authenticate } from "../shopify.server";
+import { createProductsPageUrl } from "../features/products/pagination";
+import type { ProductPage } from "../features/products/types";
 import {
-  createProductsPageUrl,
   loader,
   ProductsView,
-  type ProductPage,
 } from "./app.products";
 
 vi.mock("../shopify.server", () => ({
