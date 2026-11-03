@@ -1,4 +1,6 @@
 node_modules
+/dist/
+*.log
 
 # macOS
 .DS_Store
@@ -12,6 +14,9 @@ node_modules
 /prisma/dev.sqlite
 /prisma/dev.sqlite-journal
 database.sqlite
+Thumbs.db
+*.tmp
+*.swp
 
 .env
 .env.*
@@ -21,6 +26,7 @@ database.sqlite
 
 
 /extensions/*/dist
+.vitest/
 
 # Ignore shopify files created during app dev
 .shopify/*
