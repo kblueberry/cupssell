@@ -8,8 +8,8 @@ import {
 } from "react-router";
 import { boundary } from "@shopify/shopify-app-react-router/server";
 
-import { loadProductsPage } from "../features/products/api.server";
-import { createProductsPageUrl } from "../features/products/pagination";
+import { loadProductsPage } from "../features/products/api/api.server";
+import { createProductsPageUrl } from "../features/products/utils/pagination";
 import type { ProductsPageData } from "../features/products/types";
 
 export const loader = loadProductsPage;

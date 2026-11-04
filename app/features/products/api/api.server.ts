@@ -1,8 +1,8 @@
 import type { LoaderFunctionArgs } from "react-router";
-import { authenticate } from "../../shopify.server";
-import type { ProductsPageQuery, ProductsPageQueryVariables } from "../../types/admin.generated";
-import { parseProductPaginationParams } from "./pagination";
-import type { ProductListItem, ProductPage, ProductsPageData } from "./types";
+import { authenticate } from "../../../shopify.server";
+import type { ProductsPageQuery, ProductsPageQueryVariables } from "../../../types/admin.generated";
+import { parseProductPaginationParams } from "../utils/pagination";
+import type { ProductListItem, ProductPage, ProductsPageData } from "../types/types";
 
 const PAGE_SIZE = 10;
 const LOAD_ERROR = "We couldn't load products. Try again.";

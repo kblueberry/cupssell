@@ -3,8 +3,8 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { authenticate } from "../shopify.server";
-import { createProductsPageUrl } from "../features/products/pagination";
-import type { ProductPage } from "../features/products/types";
+import { createProductsPageUrl } from "../features/products/utils/pagination";
+import type { ProductPage } from "../features/products/types/types";
 import { PendingNavigationStatus } from "./app";
 import {
   loader,
