@@ -8,8 +8,6 @@
 - **Run dev server**: `npm run dev`
 - **Run unit tests**: `npm run test`
 - **Lint & Typecheck**: `npm run lint && npm run typecheck` (Always run before completing a task)
-- **Shopify AI Toolkit**: Use the [Shopify AI Toolkit](https://shopify.dev/docs/apps/build/ai-toolkit) for all Shopify API and platform work. If missing, install it in the agent host per that page (or `npx skills add Shopify/shopify-ai-toolkit --list` for skill-compatible hosts) — do not add tooling to this repo.
-
 
 ## Architecture & Code Guidelines
 - **Directory Structure**:
@@ -21,6 +19,7 @@
 ## Development workflow
 This project uses Spec Kit (spec-driven development). 
 Rules:
+- Use the [Shopify AI Toolkit](https://shopify.dev/docs/apps/build/ai-toolkit) for all Shopify API and platform work. If missing, install it in the agent host per that page (or `npx skills add Shopify/shopify-ai-toolkit --list` for skill-compatible hosts) — do not add tooling to this repo.
 - Do not write implementation code before a spec and plan exist for the feature.
 - Specs live in `specs/<feature>/`. Read them before changing related code.
 - Project principles are in `.specify/memory/constitution.md`. Follow them.
