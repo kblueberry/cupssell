@@ -1,4 +1,4 @@
-import type { ProductsPageQuery } from "../../types/admin.generated";
+import type { ProductsPageQuery } from "../../../types/admin.generated";
 
 type ProductNode = ProductsPageQuery["products"]["edges"][number]["node"];
 
